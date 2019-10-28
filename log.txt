@@ -1,0 +1,22 @@
+-- 10.28
+    -- 环境搭建
+        1. 测试引入antd,进行配置
+          -- 没进行高级配置前，实际上加载了全部的antd组件的样式
+          -- 对app默认配置进行自定义，使用react-app-rewired(一个对app进行自定义配置的解决方案)
+          -- 引入react-app-rewired并修改package.json,版本关系，还需要安装customize-cra
+             1.cnpm install -- save-dev react-app-rewired customize-cra
+
+			 2."scripts": {
+			    "start": "react-app-rewired start",
+			    "build": "react-app-rewired build",
+			    "test": "react-app-rewired test",
+			    "eject": "react-scripts eject"
+			   }    
+
+			   antd为： "test": "react-scripts test --env=jsdom",  
+			   
+			 3.在目录中创建config-overrides.js用于修改默认配置
+
+		  -- 使用babel-plugin-import,是一个用于加载组件代码和样式的babel插件	
+		  -- 自定义主题，安装 
+		     cnpm install --save-dev less less-loader  
