@@ -23,4 +23,10 @@
 
 		2.路由配置
 		   -- npm instal --save react-router-dom
-		        
+        
+        3.增加redux
+           -- store.js redux 最核心的管理对象模块
+           -- reducers.js 包含多个用于生成state的reduces函数的模块，根据老的state 和指定的action返回一个新的state
+           -- 
+           -- action.js  包含n个action creator异步action 同步action
+           -- action-types 包含n个action type名称常量
