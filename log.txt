@@ -14,9 +14,13 @@
 			   }    
 
 			   antd为： "test": "react-scripts test --env=jsdom",  
-			   
+
 			 3.在目录中创建config-overrides.js用于修改默认配置
 
 		  -- 使用babel-plugin-import,是一个用于加载组件代码和样式的babel插件	
 		  -- 自定义主题，安装 
 		     cnpm install --save-dev less less-loader  
+
+		2.路由配置
+		   -- npm instal --save react-router-dom
+		        

@@ -11,17 +11,23 @@ import Main from './container/main/main'
 
 //antd-mobile
 import { Button } from 'antd-mobile';
+//redux
 
+import { Provider } from 'react-redux'
+import store  from './redux/store';
 
 
 ReactDOM.render( 
-	<HashRouter>
-	    <Switch>
-	        <Route path = "/" component = {Main}/>
-	    	<Route path = "./register" 	component = {Register}/>
-	    	<Route path = "./login" component = {Login}/>
-	    </Switch>
-	</HashRouter>
+	   <Provider store = {store}>
+		<HashRouter>
+		    <Switch>
+		        <Route path = "/" component = {Main}/>
+		    	<Route path = "./register" 	component = {Register}/>
+		    	<Route path = "./login" component = {Login}/>
+		    </Switch>
+		</HashRouter>
+		</Provider>
+
 	, document.getElementById('root'));
 
 
