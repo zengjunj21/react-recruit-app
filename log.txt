@@ -30,3 +30,6 @@
            -- 
            -- action.js  包含n个action creator异步action 同步action
            -- action-types 包含n个action type名称常量
+
+--10.29
+    -- 修正路由不跳转的原因（原因未找到，感觉很莫名其妙）

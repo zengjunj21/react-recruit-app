@@ -1,12 +1,18 @@
 import React,{Component} from 'react'
-export default class Register extends Component{
+
+//引入图标组件
+import Logo from './../../components/logo/logo'
+
+
+export default class Main extends Component{
       render(){
 	  
 	      return (
-		      <div>main</div>
-		  
+		      <div>Main{/*<Logo/>*/}</div>
 		  )
 	  
 	  }
   
   }
+
+

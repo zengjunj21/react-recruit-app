@@ -1,34 +1,36 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 //路由
-import {HashRouter,Route,Switch} from 'react-router-dom'
+import {HashRouter,Route,Switch} from 'react-router-dom';
+//antd-mobile
+import { Button } from 'antd-mobile';
+
+//redux
+import { Provider } from 'react-redux';
+import store  from './redux/store';
+
+
+
+//主界面
+import Main from './container/main/main'
 //注册
 import Register from './container/register/register'
 //登入
 import Login from './container/login/login'
-//主界面
-import Main from './container/main/main'
 
-//antd-mobile
-import { Button } from 'antd-mobile';
-//redux
+ReactDOM.render((
+	    <Provider store = {store}>
+			 <HashRouter>
+			      <Switch>
 
-import { Provider } from 'react-redux'
-import store  from './redux/store';
+					  <Route path = "/register" component = {Register}></Route>
+					  <Route path = "/login" component = {Login}></Route>
+					  <Route path = "/" component = {Main}></Route>
 
-
-ReactDOM.render( 
-	   <Provider store = {store}>
-		<HashRouter>
-		    <Switch>
-		        <Route path = "/" component = {Main}/>
-		    	<Route path = "./register" 	component = {Register}/>
-		    	<Route path = "./login" component = {Login}/>
-		    </Switch>
-		</HashRouter>
+				  </Switch>
+			  </HashRouter>
 		</Provider>
-
-	, document.getElementById('root'));
+	), document.getElementById('root'));
 
 
 
