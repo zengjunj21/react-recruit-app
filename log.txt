@@ -40,3 +40,23 @@
         toLoginPage =()=>{}
         toLoginPage(){}
         这两种语法有区别？    
+
+    -- 搭建后台
+       - express server
+       - package.json,因为前后是放在一个项目中，所以可以依赖同一个package.json,复制并server中的package.json，在根目录重新安装
+		    "cookie-parser": "~1.4.4",
+		    "debug": "~2.6.9",
+		    "express": "~4.16.1",
+		    "http-errors": "~1.6.3",
+		    "ejs": "^2.6.1",
+		    "morgan": "~1.9.1"       
+       - 将jade文件删除，建立index.html
+       - 引入ejs并进行配置
+          var ejs = require("ejs")
+          //设置HTML渲染引擎
+          app.engine('.html',ejs.__express);
+          app.set('view engine', 'html');
+
+       - ejs <%= title%> 渲染语法
+       - server--routes:用于配置我们自己的路由
+       - server 启动方式，cd  server/bin/www
