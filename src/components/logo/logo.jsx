@@ -1,6 +1,6 @@
 import React,{Component} from 'react'
 import qe from './qe.jpg'
-import './logo.less'
+import './logo.scss'
 export default class Logo extends Component{
 	render(){
 		return(
