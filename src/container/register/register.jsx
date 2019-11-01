@@ -1,5 +1,6 @@
 import React,{Component} from 'react'
 
+import  Logo from './../../components/logo/logo'
 //antd-mobile
 import { NavBar,
          WingBlank,
@@ -9,10 +10,15 @@ import { NavBar,
          Radio,
          Button } from 'antd-mobile';
 
+const ListItem = List.Item
+
 export default class Register extends Component {
 	render(){
 		return (
-            <div>register</div>
+            <div>
+               <NavBar>Boss直聘</NavBar>
+               <Logo/>
+            </div>
 
 			)
 	}
