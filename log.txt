@@ -60,3 +60,27 @@
        - ejs <%= title%> 渲染语法
        - server--routes:用于配置我们自己的路由
        - server 启动方式，cd  server/bin/www
+
+-- 11.2
+     -- 后台应用自动重运行
+        - 使用nodemon包
+        - cnpm install --save-dev nodemon
+        - 配置 "server":"nodemon ./bin/www"
+                
+        - 查询8080端口被哪个进程占用 netstat -ano|findstr 8080
+        - 显示进程号为2520的进程，终止这个进程(前提是这个进程终止后不会引起其他问题，-F表示强制执行)   taskkill /pid 2520 /F
+            
+    -- 使用mongoose 操作数据库
+        下载依赖包：cnpm install --save mongoose blueimp-md5
+        加密依赖库：blueimp-md5 用于处理密码（将铭文密码转换为密文保存）
+
+    --注册、登入后台处理
+       - 路由
+       - 数据库操作
+
+
+       
+    -- 注册、登入前台处理
+       - ajax
+       - redux
+       - component

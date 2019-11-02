@@ -4,6 +4,14 @@
   "private": true,
   "dependencies": {
     "antd-mobile": "^2.3.1",
+    "blueimp-md5": "^2.12.0",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "ejs": "^2.6.1",
+    "express": "~4.16.1",
+    "http-errors": "~1.6.3",
+    "mongoose": "^5.7.7",
+    "morgan": "~1.9.1",
     "node-sass": "^4.13.0",
     "react": "^16.11.0",
     "react-dom": "^16.11.0",
@@ -12,19 +20,14 @@
     "react-scripts": "3.2.0",
     "react-thunk": "^1.0.0",
     "redux": "^4.0.4",
-    "redux-thunk": "^2.3.0",
-    "cookie-parser": "~1.4.4",
-    "debug": "~2.6.9",
-    "express": "~4.16.1",
-    "http-errors": "~1.6.3",
-    "ejs": "^2.6.1",
-    "morgan": "~1.9.1"    
+    "redux-thunk": "^2.3.0"
   },
   "scripts": {
     "start": "react-app-rewired start",
     "build": "react-app-rewired build",
     "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "ser": "nodemon ./bin/www"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -45,6 +48,7 @@
     "antd": "^3.24.3",
     "babel-plugin-import": "^1.12.2",
     "customize-cra": "^0.8.0",
+    "nodemon": "^1.19.4",
     "react-app-rewired": "^2.1.4",
     "redux-devtools-extension": "^2.13.8"
   }
