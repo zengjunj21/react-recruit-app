@@ -1,6 +1,7 @@
-import React,{Component} from 'react'
+import React,{Component} from 'react';
+//路由
+import {Redirect} from 'react-router-dom';
 
-import  Logo from './../../components/logo/logo'
 //antd-mobile
 import { NavBar,
          WingBlank,
@@ -10,9 +11,15 @@ import { NavBar,
          Radio,
          Button } from 'antd-mobile';
 
-const ListItem = List.Item
+import {connect} from 'react-redux';
+import {register} from '../../redux/actions';
+// 组件
+import Logo from './../../components/logo/logo';
+// Item 组件
+const ListItem = List.Item;
 
-export default class Register extends Component {
+
+class Register extends Component {
  
    state = {
       username:'',//用户名
@@ -22,7 +29,9 @@ export default class Register extends Component {
    }
    //点击注册
    register = () =>{
-      console.log(this.state)
+     // console.log(this.state)
+     const {register} = this.props;
+     register(this.state);
    }
    //处理输入数据的改变，更新对应的状态
    handleChange (name,value) {
@@ -48,12 +57,20 @@ export default class Register extends Component {
 
 	render(){
       const {type} = this.state;
+      const {msg,redirectTo} = this.props.user;
+      //如果这个有值，说明注册成功了，需要重定向到指定路由
+      if(redirectTo){
+         return <Redirect to = {redirectTo}></Redirect>
+      }
 		return (
             <div>
                <NavBar>Boss直聘</NavBar>
                <Logo/>
                <WingBlank>
                   <List>
+                     <WhiteSpace/>
+                     {msg ? <div className = "err-msg">{msg}</div> : null}
+                     <WhiteSpace/>
                      <InputItem onChange = {(val) =>{this.handleChange('username',val)}} placeholder = '请输入用户名'>用户名:</InputItem>
                      <WhiteSpace/>
                      <InputItem onChange = {val =>{this.handleChange('password',val)}} placeholder = '请输入密码' type="password">密&nbsp;&nbsp;&nbsp;码:</InputItem>
@@ -77,3 +94,9 @@ export default class Register extends Component {
 			)
 	}
 }
+
+export default connect(
+    state =>({user:state.user}),
+    {register} //注册异步action
+
+  )(Register)

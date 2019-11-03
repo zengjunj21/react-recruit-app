@@ -17,7 +17,8 @@ import Main from './container/main/main'
 import Register from './container/register/register'
 //登入
 import Login from './container/login/login'
-
+//公共样式
+import './assets/css/index.scss';
 ReactDOM.render((
 	    <Provider store = {store}>
 			 <HashRouter>

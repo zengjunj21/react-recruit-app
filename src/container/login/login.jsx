@@ -1,7 +1,13 @@
 //登陆路由组件
 import React,{Component} from 'react'
+//路由
+import {Redirect} from 'react-router-dom';
+//容器
+import {connect} from 'react-redux';
+//action 函数
+import {login} from '../../redux/actions';
 
-import  Logo from './../../components/logo/logo'
+import  Logo from './../../components/logo/logo';
 //antd-mobile
 import { NavBar,
          WingBlank,
@@ -12,7 +18,7 @@ import { NavBar,
 
 const ListItem = List.Item
 
-export default class Login extends Component {
+ class Login extends Component {
  
    state = {
       username:'',//用户名
@@ -21,6 +27,8 @@ export default class Login extends Component {
    //点击注册
    login = () =>{
       console.log(this.state)
+      const {login} = this.props;
+      login(this.state);
    }
    //处理输入数据的改变，更新对应的状态
    handleChange (name,value) {
@@ -46,12 +54,18 @@ export default class Login extends Component {
 
 	render(){
       const {type} = this.state;
+      const {msg,redirectTo} = this.props.user;
+      //如果这个有值，说明成功了，需要重定向到指定路由
+      if(redirectTo){
+         return <Redirect to = {redirectTo}></Redirect>
+      }
 		return (
             <div>
                <NavBar>Boss直聘</NavBar>
                <Logo/>
                <WingBlank>
                   <List>
+                     {msg ? <div className = "err-msg">{msg}</div> : null}  
                      <InputItem onChange = {(val) =>{this.handleChange('username',val)}} placeholder = '请输入用户名'>用户名:</InputItem>
                      <WhiteSpace/>
                      <InputItem onChange = {val =>{this.handleChange('password',val)}} placeholder = '请输入密码' type="password">密&nbsp;&nbsp;&nbsp;码:</InputItem>
@@ -67,3 +81,9 @@ export default class Login extends Component {
 			)
 	}
 }
+
+export default connect(
+    state =>({user:state.user}),
+    {login} //登陆异步action
+
+  )(Login)
