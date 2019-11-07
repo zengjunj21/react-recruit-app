@@ -40,7 +40,7 @@ const userSchema = mongoose.Schema({
     salary:{type:String},//薪水
 })
 // 2.2 定义Model（与集合对应，可以操作集合）
-const UserModel = mongoose.model('user',userSchema);
+const UserModel = mongoose.model('user',userSchema); //数据库中是users
 // 2.3 向外暴露Model
 //module.exports 一次性暴露
 //exports.xxx = value 分别暴露

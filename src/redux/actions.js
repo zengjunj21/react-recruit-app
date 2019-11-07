@@ -2,7 +2,7 @@
 		  异步action
 		  同步action*/
 
-// 引入action_types
+// 引入action_types（对象赋值解构的方式拿到属性直接使用）
 import {
 	AUTH_SUCCESS,
 	ERROR_MSG,
@@ -11,7 +11,7 @@ import {
 // 引入接口
 import {reqRegister,
 	    reqLogin
-} from '../api'
+} from '../api' //默认加载index.js文件
 
 // 授权成功的同步action
 const authSuccess = (user) => ({type:AUTH_SUCCESS,data:user});
@@ -59,7 +59,7 @@ export const login = (user)=>{
     	return errorMsg('密码不能为空');
     }
     //表单数据合法，返回一个发ajax请求的异步action
-	return async dispatch =>{
+	return async (dispatch) =>{
 		//发送注册的异步ajax await马上能得到结果，不加则返回的是一个promise
 		const response = await reqLogin({username,password});
 		const result = response.data;

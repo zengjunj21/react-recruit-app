@@ -3,7 +3,8 @@ var router = express.Router();
 
 //引入模型
 const {UserModel} = require("../db/models");
-const md5 =  require("blueimp-md5"); //md5加密函数
+//md5加密函数
+const md5 =  require("blueimp-md5"); 
 
 
 //指定过滤的属性（过滤掉password与__v）

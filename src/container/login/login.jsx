@@ -6,7 +6,7 @@ import {Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 //action 函数
 import {login} from '../../redux/actions';
-
+//图标
 import  Logo from './../../components/logo/logo';
 //antd-mobile
 import { NavBar,
@@ -82,8 +82,16 @@ const ListItem = List.Item
 	}
 }
 
+//const stateToProps = state =>({user:state.user})
+const stateToProps = (state) =>{
+	return {
+		user:state.user
+	}
+}
+console.log(login)
 export default connect(
-    state =>({user:state.user}),
+    //state =>({user:state.user}),
+    stateToProps,
     {login} //登陆异步action
 
   )(Login)
