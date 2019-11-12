@@ -23,4 +23,4 @@ export const reqRegister = (user) => {
 export const reqLogin = ({username,password}) => ajax('/login',{username,password},'POST');
 
 // 更新用户
-export const reqUpdateUser = (user) => ajax('/update',user,'POSY');
+export const reqUpdateUser = (user) => ajax('/update',user,'POST');

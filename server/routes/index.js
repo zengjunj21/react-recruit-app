@@ -138,7 +138,12 @@ router.post('/update',function(req,res){
         }else {
             //准备一个返回用户数据的对象
             const {_id,username,type} = oldUser;
-            const data = Object.assign(user,{_id,username,type});//将多个对象合并成一个对象并返回
+            const data = Object.assign({_id,username,type},user);//将多个对象合并成一个对象并返回
+            console.log("------------------------");
+            console.log(oldUser);
+            console.log("------------------------");
+            console.log(data);
+            console.log("------------------------");
             res.send({code:0,data});
         }
 

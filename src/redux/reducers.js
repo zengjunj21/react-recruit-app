@@ -5,6 +5,9 @@
 	import {
 		AUTH_SUCCESS,
 		ERROR_MSG,
+		RECEIVE_USER,
+		RESET_USER
+
 	} from './action-types';
     //工具函数
     import {getRedirectTo} from '../utils';
@@ -26,6 +29,11 @@
         	    return {...action.data,redirectTo:getRedirectTo(type,header)} //state 中保留了原来的state，所以不要了，用最新的，因为注册成功之后可以直接去主页面了或者去信息完善页面。
         	case ERROR_MSG:
         	    return {...state,msg:action.data}// 先把原来的msg解构出来，接着用action.data替换msg
+        	case RECEIVE_USER:
+        	    return action.data
+    	    case RESET_USER:
+    	    return {...initUser,msg:action.data}
+
         	default:
         	    return state
         }
