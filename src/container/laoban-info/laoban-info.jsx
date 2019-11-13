@@ -4,15 +4,20 @@
 */
 
 import React,{Component} from 'react';
+//容器
 import {connect} from 'react-redux';
-
+//路由
 import {Redirect} from 'react-router-dom';
 
 
-
+//antd-mobile
 import {NavBar,InputItem,TextareaItem,Button} from 'antd-mobile';
+//图像组件
 import HeaderSelector from './../../components/header-selector/header-selector';
+//action
 import {updateUser} from './../../redux/actions'
+
+//LaobanInfo
 class LaobanInfo extends Component{
     
     state = {
