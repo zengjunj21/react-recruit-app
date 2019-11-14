@@ -1,5 +1,7 @@
 import React,{Component} from 'react'
-import { Switch,Route,Link } from 'react-router-dom';
+import { Switch,Route,Link,Redirect} from 'react-router-dom';
+import {connect} from 'react-redux';
+
 
 import LaobanInfo from './../laoban-info/laoban-info'
 import DashenInfo from './../dashen-info/dashen-info'
@@ -8,9 +10,13 @@ import DashenInfo from './../dashen-info/dashen-info'
 import Logo from './../../components/logo/logo'
 
 
-export default class Main extends Component{
+ class Main extends Component{
       render(){
-	  
+      	//检查用户是否登入，如果没有，自动重定向到登入界面
+	    const {user} = this.props;
+	    if(!user._id){
+           return <Redirect to='/login'/>
+	    }
 	      return (
 		      <div>
 		      	<Switch>
@@ -23,3 +29,7 @@ export default class Main extends Component{
 	  }
   
   }
+
+  export default connect(
+      state =>({user:state.user})
+  	)(Main)
