@@ -151,4 +151,18 @@ router.post('/update',function(req,res){
 
 })
 
+//获取用户信息的路由（根据cookie中的userid）
+router.get('/user',function(req,res){
+    //从请求的cookie中得到userid
+    const userid = req.cookies.userid;
+    //如果不存在，返回一个提示信息的结果
+    if(!userid){
+        return res.send({code:1,msg:'请先登入'});
+    }
+    //根据userid查询对于的user
+    UserModel.findOne({_id:userid},filter,function(err,user){
+        res.send({code:0,data:user})
+    })
+})
+
 module.exports = router;
