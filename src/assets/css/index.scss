@@ -1,5 +1,11 @@
-.err-msg{
+.err-msg{ /*错误信息提示*/
 	color:red;
 	text-align:center;
 	font-size:18px;
+}
+
+.am-tab-bar{ /*导航在底部*/
+	position:fixed;
+	bottom:0;
+	width:100%;
 }

@@ -5,10 +5,17 @@ import { Switch,Route,Link,Redirect} from 'react-router-dom';
 import {connect} from 'react-redux';
 //cookies（操作前端cookie的对象）set() get() remove
 import Cookies from 'js-cookie'
+//ui
+import { NavBar } from 'antd-mobile'
 //页面
 import LaobanInfo from './../laoban-info/laoban-info'
 import DashenInfo from './../dashen-info/dashen-info'
-
+import Laoban from './../laoban/laoban'
+import Dashen from './../dashen/dashen'
+import Personal from './../personal/personal'
+import Message from './../message/message'
+import NotFound from './../../components/not-found/not-found'
+import NavFooter from './../../components/nav-footer/nav-footer'
 //工具函数
 import {getRedirectTo} from '../../utils'
 //引入图标组件
@@ -17,6 +24,40 @@ import Logo from './../../components/logo/logo'
 import {getUser} from '../../redux/actions'
 
  class Main extends Component{
+    //给组件对象添加属性
+    //包含所有导航组件的相关信息数据
+    navList = [
+        {
+          path:'/laoban', //路由路径
+          component:Laoban,
+          title:'老板列表',
+          icon:'laoban',
+          text:'老板'
+        },
+        {
+          path:'/dashen', //路由路径
+          component:Dashen,
+          title:'大神列表',
+          icon:'dashen',
+          text:'大神'
+        },
+        {
+          path:'/message', //路由路径
+          component:Message,
+          title:'消息列表',
+          icon:'message',
+          text:'消息'
+        },
+        {
+          path:'/personal', //路由路径
+          component:Personal,
+          title:'用户中心',
+          icon:'personal',
+          text:'个人'
+        }
+
+
+    ]
 
  
     componentDidMount(){
@@ -56,13 +97,34 @@ import {getUser} from '../../redux/actions'
 
         }
         
- 
+        const {navList} = this;
+        //请求的路径
+        const path = this.props.location.pathname;
+        //得到当前的nav,可能没有
+        const currentNav = navList.find(nav => nav.path == path);
+        if(currentNav){
+          //决定哪个路由需要隐藏
+          if(user.type === 'laoban'){
+             //隐藏大神（数组的第二个）
+             navList[1].hide = true;
+          }else{
+             //隐藏老板（数组的第一个）
+             navList[0].hide = true;
+          }
+        }
 	      return (
 		      <div>
+            {currentNav ? <NavBar>{currentNav.title}</NavBar> : null}
 		      	<Switch>
+              {
+                //遍历路由(渲染)
+                navList.map((nav)=><Route path = {nav.path}  component = {nav.component}></Route>)
+              }
 		      		<Route path = '/laobaninfo' component = {LaobanInfo}></Route>
 		      		<Route path = '/dasheninfo' component = {DashenInfo}></Route>
+              <Route component = {NotFound}/>
 		      	</Switch>
+            {currentNav ? <NavFooter navList = {navList}/> : null}
 		      </div>
 		  )
 	  

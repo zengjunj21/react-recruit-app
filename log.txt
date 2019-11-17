@@ -124,7 +124,9 @@
               - 如果没有_id则会返回一个空不做任何处理（此时页面进行了一次render()）
               - componentDidMount 钩子函数，在页面一次render之后调用，该函数中有获取用户信息的接口，调用接口，当redux接收到了信息，注入到了state中，状态更新了，组件也立马进行更新，接着继续执行代码，判断当前页面是否是根目录，如果是根目录则进入判断，并根据user中的信息得到一个重定向的路径，如果不是根目录则会进入对应的路由（laobanInfo,dashenInfo），最后在laobanInfo,dashenInfo中进行处理
 
-
+        - mian主界面配置多个路由
+           - laoban dashen message personal
+           - 根据不同的路径显示不同的路由页面
 
 
 
@@ -134,3 +136,4 @@ react
 
     -- 要发请求与后台进行交互，必然引入一个异步的action
     -- 状态更新，组件就会进行更新
+    -- 
