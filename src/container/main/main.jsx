@@ -118,7 +118,7 @@ import {getUser} from '../../redux/actions'
 		      	<Switch>
               {
                 //遍历路由(渲染)
-                navList.map((nav)=><Route path = {nav.path}  component = {nav.component}></Route>)
+                navList.map((nav,index)=><Route key = {index} path = {nav.path}  component = {nav.component}></Route>)
               }
 		      		<Route path = '/laobaninfo' component = {LaobanInfo}></Route>
 		      		<Route path = '/dasheninfo' component = {DashenInfo}></Route>
