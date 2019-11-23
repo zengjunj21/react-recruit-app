@@ -7,14 +7,16 @@ import {
 	AUTH_SUCCESS,
 	ERROR_MSG,
 	RECEIVE_USER,
-	RESET_USER
+	RESET_USER,
+	RECEIVE_USER_LIST
 } from './action-types';
 
 // 引入接口
 import {reqRegister,
 	    reqLogin,
 	    reqUpdateUser,
-	    reqUser
+	    reqUser,
+	    reqUserList
 } from '../api' //默认加载index.js文件
 
 // 授权成功的同步action
@@ -25,13 +27,15 @@ const errorMsg = (msg) => ({type:ERROR_MSG,data:msg});
 const receiveUser = (user) => ({type:RECEIVE_USER,data:user});
 //重置用户的同步action
 //const resetUser = (msg) =>()
-function resetUser(msg){
+export function resetUser(msg){
 	return {
 		type:RESET_USER,
 		data:msg
 	}
 }
 
+// 接收用户列表的同步action
+export const receiveUserList = (userList)=>({type:RECEIVE_USER_LIST,data:userList});
 
 // 注册异步action（一旦写上了await，这条语句所在的函数就必须声明成async）
 export const register = (user)=>{
@@ -113,5 +117,19 @@ export const getUser = () =>{
             dispatch(resetUser(result.msg));
 		} 
 
+	}
+}
+
+//获取用户列表异步action
+export const getUserList = (type)=>{
+	return async function (dispatch){
+		//执行异步action请求
+        const response = await reqUserList(type);
+        const result = response.data;
+
+		//得到结果后，分发一个同步action
+		if(result.code == 0){
+           dispatch(receiveUserList(result.data))
+	    }
 	}
 }

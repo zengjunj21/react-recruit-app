@@ -6,11 +6,13 @@
 		AUTH_SUCCESS,
 		ERROR_MSG,
 		RECEIVE_USER,
-		RESET_USER
+		RESET_USER,
+        RECEIVE_USER_LIST
 
 	} from './action-types';
     //工具函数
     import {getRedirectTo} from '../utils';
+    //用户
     const initUser = {
         username:'', //用户名
         type:'',     //用户类型
@@ -39,11 +41,26 @@
         }
 	}
 
+    const initUserList = [];
+
+    //产生userlist状态的reducer
+    function userList(state = initUserList,action){
+        switch(action.type){
+            case RECEIVE_USER_LIST:
+            return action.data;       //data为用户的列表
+            default :
+            return state
+
+        }
+
+    }
+
 	export default combineReducers({
-	  user
+	  user,
+      userList
 	})
 
-	//向外暴露的状态的结构 ：{user:{}}
+	//向外暴露的状态的结构 ：{user:{},userList:[]}
 	/*
 	
 	    redux的 combineReducers方法 用于Reducer的拆分，只要定义各个子Reducer函数，然后用这个方法将他合成一个大的reducer

@@ -5,15 +5,26 @@
 import React,{Component} from 'react'
 //容器
 import {connect} from 'react-redux'
+import UserList from '../../components/user-list/user-list'
+//获取异步action
+import { getUserList } from '../../redux/actions'
 class Laoban extends Component{
+
+	componentDidMount(){
+        //获取userList
+        this.props.getUserList('laoban')
+	}
+
 	render(){
 		return(
-            <div>laoban</div>
+            <div>
+            	<UserList userList = {this.props.userList}/>
+            </div>
 			)
 	}
 }
 
 export default connect(
-     state =>({}),
-     {}
+     state =>({userList:state.userList}),
+     {getUserList}
 	)(Laoban);

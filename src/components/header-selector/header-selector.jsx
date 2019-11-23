@@ -21,8 +21,8 @@ class HeaderSelector extends Component{
         this.headerList = [];
         for(let i = 0;i<9;i++){
         	this.headerList.push({
-        		text:'头像'+(i+1),
-        		icon: require(`./images/header-(${i+1}).png`) //不能使用inport，只能require动态加载头像
+        		text:'header'+(i+1),
+        		icon: require(`../../assets/images/header${i+1}.png`) //不能使用inport，只能require动态加载头像
         	})
         }
 	}

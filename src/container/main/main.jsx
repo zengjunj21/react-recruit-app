@@ -114,7 +114,7 @@ import {getUser} from '../../redux/actions'
         }
 	      return (
 		      <div>
-            {currentNav ? <NavBar>{currentNav.title}</NavBar> : null}
+            {currentNav ? <NavBar className = "fixed-header">{currentNav.title}</NavBar> : null}
 		      	<Switch>
               {
                 //遍历路由(渲染)

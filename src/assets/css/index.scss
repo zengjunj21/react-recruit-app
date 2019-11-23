@@ -8,4 +8,12 @@
 	position:fixed;
 	bottom:0;
 	width:100%;
+	height:inherit; /*包裹内容*/
+}
+
+.fixed-header{ /*标题导航始终在顶部*/
+	position:fixed;
+	top:0;
+	width:100%;
+	z-index:15;
 }
