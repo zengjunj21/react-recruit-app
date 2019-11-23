@@ -128,6 +128,23 @@
            - laoban dashen message personal
            - 根据不同的路径显示不同的路由页面
 
+11.23
+    -- 个人中心登出功能、laoban与dashen列表
+      - 列表api,actions,reducers
+      - 列表渲染
+
+    -- 实时聊天
+      - 依赖 cnpm install --save socket.io
+         - socket.io是一个能实现多人远程实时通信（聊天）的库
+         - 它包装的是H5 WebSocket和轮询，如果是比较新的浏览器内部使用WebSocket,如果不支持，那内部就会使用轮询实时通信
+         - 和http请求差不多，但不一样
+            - http协议特点：只能浏览器（客户端）发送请求，不能做到服务器向浏览器发送请求
+      - 添加测试代码
+         - 在服务端创建socketI/test.js，编写监听与分发代码
+            - www文件创建服务 调用test.js测试文件并传入server
+            - require('../socketIo/test')(server)
+         - 在客户端创建test/sicjetuio_test.js
+            - 编写监听与分发代码
 
 
 
