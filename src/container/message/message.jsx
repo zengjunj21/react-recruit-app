@@ -8,7 +8,7 @@ import {connect} from 'react-redux'
 class Message extends Component{
 	render(){
 		return(
-            <div>Message</div>
+            <div style = {{marginBottom:'50px',marginTop:'50px'}}>Message</div>
 			)
 	}
 }
