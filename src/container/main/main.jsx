@@ -16,6 +16,7 @@ import Personal from './../personal/personal'
 import Message from './../message/message'
 import NotFound from './../../components/not-found/not-found'
 import NavFooter from './../../components/nav-footer/nav-footer'
+import Chat from './../chat/chat'
 //工具函数
 import {getRedirectTo} from '../../utils'
 //引入图标组件
@@ -121,7 +122,8 @@ import {getUser} from '../../redux/actions'
                 navList.map((nav,index)=><Route key = {index} path = {nav.path}  component = {nav.component}></Route>)
               }
 		      		<Route path = '/laobaninfo' component = {LaobanInfo}></Route>
-		      		<Route path = '/dasheninfo' component = {DashenInfo}></Route>
+              <Route path = '/dasheninfo' component = {DashenInfo}></Route>
+		      		<Route path = '/chat/:userid' component = {Chat}></Route>
               <Route component = {NotFound}/>
 		      	</Switch>
             {currentNav ? <NavFooter navList = {navList}/> : null}

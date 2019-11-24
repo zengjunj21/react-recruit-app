@@ -4,6 +4,7 @@
 import React,{Component} from 'react';
 import PropType from 'prop-types'
 import { Card , WingBlank , WhiteSpace } from 'antd-mobile';
+import { withRouter } from 'react-router-dom';
 const Header = Card.Header;
 const Body = Card.Body;
 class UserList extends Component{
@@ -22,7 +23,7 @@ class UserList extends Component{
             		userList.map((user,index)=>(
 	                        <div index ={index} key = {index}>
 		            			<WhiteSpace/>
-		            			<Card>
+		            			<Card onClick = {()=>this.props.history.push(`/chat/${user._id}`)}>
 		            				<Header
 		                                thumb = {require(`../../assets/images/${user.header}.png`)}
 		            				    extra = {user.username}
@@ -45,5 +46,6 @@ class UserList extends Component{
 			)
 	}
 }
-
-export default UserList;
+//向外暴露withRouter()包装产生的组件
+//内部会向组件中传入一些路由组件特有的属性：history，location，math
+export default withRouter(UserList);

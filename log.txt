@@ -139,7 +139,7 @@
          - 它包装的是H5 WebSocket和轮询，如果是比较新的浏览器内部使用WebSocket,如果不支持，那内部就会使用轮询实时通信
          - 和http请求差不多，但不一样
             - http协议特点：只能浏览器（客户端）发送请求，不能做到服务器向浏览器发送请求
-            
+
       - 添加测试代码
          - 在服务端创建socketI/test.js，编写监听与分发代码
             - www文件创建服务 调用test.js测试文件并传入server
@@ -149,7 +149,15 @@
             - 在客户端引入 import './test/socketio_test'
 
 11.24 
-    -- socket编码
+    -- 添加模型
+    -- 添加api接口
+    -- 聊天组件：chat.jsx
+       - 非路由组件没有 history，则需引入 withRouter（详情见见user-list）
+       - 向外暴露withRouter()包装产生的组件
+       - 内部会向组件中传入一些路由组件特有的属性：history，location，math
+
+    -- 消息列表：message.jsx
+
 
 
 react
