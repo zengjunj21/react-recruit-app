@@ -12,7 +12,7 @@ class Laoban extends Component{
 
 	componentDidMount(){
         //获取userList
-        this.props.getUserList('laoban')
+        this.props.getUserList('dasheng')
 	}
 
 	render(){

@@ -11,7 +11,7 @@ import { getUserList } from '../../redux/actions'
 class Dashen extends Component{
 	componentDidMount(){
         //获取userList
-        this.props.getUserList('dasheng')
+        this.props.getUserList('laoban')
 	}
 	render(){
 		return(
