@@ -183,7 +183,7 @@ router.get('/msgList',function(req,res){
         // 用对象存储所有的user信息，key为user的_id,value为name和header组成的user对象
         const users = {};
         userDoc.forEach((doc)=>{
-            users.[doc.id] = {
+            users[doc.id] = {
                 username:doc.username,
                 header:doc.header
             }

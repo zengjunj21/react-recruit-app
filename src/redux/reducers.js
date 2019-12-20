@@ -7,7 +7,9 @@
 		ERROR_MSG,
 		RECEIVE_USER,
 		RESET_USER,
-        RECEIVE_USER_LIST
+		RECEIVE_USER_LIST,
+		RECEIVE_MSG_LIST,
+		RECEIVE_MSG
 
 	} from './action-types';
     //工具函数
@@ -53,14 +55,39 @@
 
         }
 
-    }
+	}
+	
+    const initChat = {
+		users:{}, // 包含所有的用户的信息的对象
+		chatMsgs:[],// 当前用户所有相关msg的数量
+		unReadCount:0 // 总的未读数量
+	}
+	// 产生聊天状态的reduce
+	function chat (state = initChat,action){
+		switch(action.type){
+			case RECEIVE_MSG_LIST: // {users,chatMsgs}
+			    const {users,chatMsgs } = action.data
+				return {
+					users,
+					chatMsgs,
+					unReadCount:0
+				}
+		    case RECEIVE_MSG:
+				return
+			default:
+				return state
+		}
+
+	}
+
 
 	export default combineReducers({
 	  user,
-      userList
+	  userList,
+	  chat
 	})
 
-	//向外暴露的状态的结构 ：{user:{},userList:[]}
+	//向外暴露的状态的结构 ：{user:{},userList:[],chat：{}}
 	/*
 	
 	    redux的 combineReducers方法 用于Reducer的拆分，只要定义各个子Reducer函数，然后用这个方法将他合成一个大的reducer

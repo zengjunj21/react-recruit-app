@@ -57,6 +57,6 @@
   })
 
   // 定义能操作chats集合数据的Model
-  const ChatModel = mongoose.model('chat',userSchema);
+  const ChatModel = mongoose.model('chat',chatSchema);
   //向外暴露Model
   exports.ChatModel = ChatModel;

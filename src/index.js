@@ -10,7 +10,7 @@ import { Provider } from 'react-redux';
 import store  from './redux/store';
 
 //socketio_test
-import './test/socketio_test'
+//import './test/socketio_test'
 
 //主界面
 import Main from './container/main/main'

@@ -30,3 +30,9 @@ export const reqUser = () => ajax('/user');
 
 // 获取用户列表
 export const reqUserList = (type) => ajax('/userList',{type});
+
+// 获取当前用户的聊天消息列表
+export const reqChatMsgList = () => ajax('/msgList');
+
+// 修改制定消息为已读
+export const reqReadMsg = (from) => ('/readmsg',{from},'POST')

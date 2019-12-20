@@ -8,7 +8,9 @@ import {
 	ERROR_MSG,
 	RECEIVE_USER,
 	RESET_USER,
-	RECEIVE_USER_LIST
+	RECEIVE_USER_LIST,
+	RECEIVE_MSG_LIST,
+	RECEIVE_MSG
 } from './action-types';
 
 // 引入接口
@@ -16,8 +18,15 @@ import {reqRegister,
 	    reqLogin,
 	    reqUpdateUser,
 	    reqUser,
-	    reqUserList
+		reqUserList,
+		reqChatMsgList,
+		reqReadMsg
 } from '../api' //默认加载index.js文件
+
+// 引入客户端io
+import io  from 'socket.io-client';
+
+
 
 // 授权成功的同步action
 const authSuccess = (user) => ({type:AUTH_SUCCESS,data:user});
@@ -36,6 +45,11 @@ export function resetUser(msg){
 
 // 接收用户列表的同步action
 export const receiveUserList = (userList)=>({type:RECEIVE_USER_LIST,data:userList});
+
+// 接收消息列表的同步action
+export const receiveMsgList = ({users,chatMsgs})=>({type:RECEIVE_MSG_LIST,data:users,chatMsgs})
+
+
 
 // 注册异步action（一旦写上了await，这条语句所在的函数就必须声明成async）
 export const register = (user)=>{
@@ -59,6 +73,8 @@ export const register = (user)=>{
 		const result = response.data; //{code:0,data:user,msg:''}
 		//不管是成功还是失败都要分发同步的action
 		if(result.code === 0){//成功
+
+			getMsgList(dispatch)
             dispatch(authSuccess(result.data))
 		}else{//失败
             dispatch(errorMsg(result.msg))
@@ -84,6 +100,7 @@ export const login = (user)=>{
 		const result = response.data;
 		//不管是成功还是失败都要分发同步的action
 		if(result.code === 0){//成功
+			getMsgList(dispatch);
             dispatch(authSuccess(result.data))
 		}else{//失败
             dispatch(errorMsg(result.msg))
@@ -112,6 +129,7 @@ export const getUser = () =>{
 		const response = await reqUser();
 		const result = response.data;
 		if(result.code === 0){
+			getMsgList(dispatch)
 			dispatch(receiveUser(result.data)) //同步action
 		}else{
             dispatch(resetUser(result.msg));
@@ -134,9 +152,48 @@ export const getUserList = (type)=>{
 	}
 }
 
+// 获取消息列表
+async function getMsgList(dispatch){
+	// 初始化Io
+	initIO();
+	const responce = await reqChatMsgList();
+	const result = responce.data;
+	if(result.code == 0){
+		// 获取数据
+		const {users,chatMsgs} = result.data;
+		// 分发同步action
+		dispatch(receiveMsgList({users,chatMsgs}))
+		
+	}
+}
+
+/*
+	单例对象（单一的实例，整个内存里面只有一个socket对象）
+	1. 创建对象之前：判断对象是否已经存在，只有不存在才去创建
+	2. 创建对象之后：保存对象
+*/
+
+function initIO(){
+	// 1. 创建对象之前：判断对象是否已经存在，只有不存在才去创建
+	if(!io.socket){
+        // 连接服务器，得到代表连接的socket对象
+	    io.socket = io('ws://localhost:3003');
+		// 绑定 receiveMsg 的监听，来接收服务器发送的消息
+		io.socket.on('receiveMsg',function(chatMsg){
+			console.log('客户端接收服务器发送的消息',chatMsg)
+		})
+	}
+
+}
+
+
 // 异步发送消息的action
 export const sendMsg = ({from,to,content}) =>{
 	return dispatch =>{
-		console.log("send msg",{from,to,content})
+		console.log("客户端向服务器发送消息",{from,to,content})
+		
+		// 发消息
+		io.socket.emit('sendMsg',{from,to,content})
+		
 	}
 }
