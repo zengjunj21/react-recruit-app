@@ -72,8 +72,13 @@
 					chatMsgs,
 					unReadCount:0
 				}
-		    case RECEIVE_MSG:
-				return
+			case RECEIVE_MSG: // {chatMsg}
+			    const  chatMsg  = action.data;  
+				return {
+					users:state.users,
+					chatMsgs:[...state.chatMsgs,chatMsg],
+					unReadCount:0
+				}
 			default:
 				return state
 		}

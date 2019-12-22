@@ -44,11 +44,12 @@ export function resetUser(msg){
 }
 
 // 接收用户列表的同步action
-export const receiveUserList = (userList)=>({type:RECEIVE_USER_LIST,data:userList});
+const receiveUserList = (userList)=>({type:RECEIVE_USER_LIST,data:userList});
 
 // 接收消息列表的同步action
-export const receiveMsgList = ({users,chatMsgs})=>({type:RECEIVE_MSG_LIST,data:users,chatMsgs})
-
+const receiveMsgList = ({users,chatMsgs})=>({type:RECEIVE_MSG_LIST,data:{users,chatMsgs}})
+// 接收一个消息的同步action
+const receiveMsg = (chatMsg) =>({type:RECEIVE_MSG,data:chatMsg})
 
 
 // 注册异步action（一旦写上了await，这条语句所在的函数就必须声明成async）
@@ -74,7 +75,7 @@ export const register = (user)=>{
 		//不管是成功还是失败都要分发同步的action
 		if(result.code === 0){//成功
 
-			getMsgList(dispatch)
+			getMsgList(dispatch,result.data._id)
             dispatch(authSuccess(result.data))
 		}else{//失败
             dispatch(errorMsg(result.msg))
@@ -100,7 +101,7 @@ export const login = (user)=>{
 		const result = response.data;
 		//不管是成功还是失败都要分发同步的action
 		if(result.code === 0){//成功
-			getMsgList(dispatch);
+			getMsgList(dispatch,result.data._id)
             dispatch(authSuccess(result.data))
 		}else{//失败
             dispatch(errorMsg(result.msg))
@@ -129,7 +130,7 @@ export const getUser = () =>{
 		const response = await reqUser();
 		const result = response.data;
 		if(result.code === 0){
-			getMsgList(dispatch)
+			getMsgList(dispatch,result.data._id)
 			dispatch(receiveUser(result.data)) //同步action
 		}else{
             dispatch(resetUser(result.msg));
@@ -152,12 +153,13 @@ export const getUserList = (type)=>{
 	}
 }
 
-// 获取消息列表
-async function getMsgList(dispatch){
+// 获取异步消息列表数据
+async function getMsgList(dispatch,userid){
 	// 初始化Io
-	initIO();
+	initIO(dispatch,userid);
 	const responce = await reqChatMsgList();
 	const result = responce.data;
+	console.log("------------",result)
 	if(result.code == 0){
 		// 获取数据
 		const {users,chatMsgs} = result.data;
@@ -173,13 +175,18 @@ async function getMsgList(dispatch){
 	2. 创建对象之后：保存对象
 */
 
-function initIO(){
+function initIO(dispatch,userid){
 	// 1. 创建对象之前：判断对象是否已经存在，只有不存在才去创建
 	if(!io.socket){
         // 连接服务器，得到代表连接的socket对象
 	    io.socket = io('ws://localhost:3003');
 		// 绑定 receiveMsg 的监听，来接收服务器发送的消息
 		io.socket.on('receiveMsg',function(chatMsg){
+		   // 只有chatMsg是当前用户相关的消息，才会分发同步action保存消息
+		   if(userid == chatMsg.from || userid == chatMsg.to){
+			   dispatch(receiveMsg(chatMsg))
+
+		   }
 			console.log('客户端接收服务器发送的消息',chatMsg)
 		})
 	}
