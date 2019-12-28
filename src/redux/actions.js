@@ -10,7 +10,7 @@ import {
 	RESET_USER,
 	RECEIVE_USER_LIST,
 	RECEIVE_MSG_LIST,
-	RECEIVE_MSG
+	RECEIVE_MSG,MSG_READ
 } from './action-types';
 
 // 引入接口
@@ -47,10 +47,11 @@ export function resetUser(msg){
 const receiveUserList = (userList)=>({type:RECEIVE_USER_LIST,data:userList});
 
 // 接收消息列表的同步action
-const receiveMsgList = ({users,chatMsgs})=>({type:RECEIVE_MSG_LIST,data:{users,chatMsgs}})
+const receiveMsgList = ({users,chatMsgs,userid})=>({type:RECEIVE_MSG_LIST,data:{users,chatMsgs,userid}})
 // 接收一个消息的同步action
-const receiveMsg = (chatMsg) =>({type:RECEIVE_MSG,data:chatMsg})
-
+const receiveMsg = (chatMsg,userid) =>({type:RECEIVE_MSG,data:{chatMsg,userid}})
+// 读取某个聊天消息的同步action
+const msgRead = (count,from,to) => ({type:MSG_READ,data:{count,from,to}})
 
 // 注册异步action（一旦写上了await，这条语句所在的函数就必须声明成async）
 export const register = (user)=>{
@@ -164,7 +165,7 @@ async function getMsgList(dispatch,userid){
 		// 获取数据
 		const {users,chatMsgs} = result.data;
 		// 分发同步action
-		dispatch(receiveMsgList({users,chatMsgs}))
+		dispatch(receiveMsgList({users,chatMsgs,userid}))
 		
 	}
 }
@@ -184,7 +185,7 @@ function initIO(dispatch,userid){
 		io.socket.on('receiveMsg',function(chatMsg){
 		   // 只有chatMsg是当前用户相关的消息，才会分发同步action保存消息
 		   if(userid == chatMsg.from || userid == chatMsg.to){
-			   dispatch(receiveMsg(chatMsg))
+			   dispatch(receiveMsg(chatMsg,userid))
 
 		   }
 			console.log('客户端接收服务器发送的消息',chatMsg)
@@ -201,6 +202,20 @@ export const sendMsg = ({from,to,content}) =>{
 		
 		// 发消息
 		io.socket.emit('sendMsg',{from,to,content})
+		
+	}
+}
+
+// 读取消息的异步action
+export const readMsg = (from,to)=>{
+	return async function (dispatch){
+		const response = await reqReadMsg(from);
+		const result = response.data;
+		if(result.code === 0){
+			const count = result.data;
+			// 调用同步action
+			dispatch(msgRead(count,from,to))
+		}
 		
 	}
 }

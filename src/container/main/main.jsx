@@ -82,7 +82,7 @@ import {getUser} from '../../redux/actions'
         	return <Redirect to='/login'/>
         }
         // 如果有，读取redux中的user状态
-        const { user } = this.props;
+        const { user ,unReadCount} = this.props;
         // 如果user没有_id，返回一个null（不做任何显示）
         if(!user._id){
             return null
@@ -126,7 +126,7 @@ import {getUser} from '../../redux/actions'
 		      		<Route path = '/chat/:userid' component = {Chat}></Route>
               <Route component = {NotFound}/>
 		      	</Switch>
-            {currentNav ? <NavFooter navList = {navList}/> : null}
+            {currentNav ? <NavFooter unReadCount = {unReadCount} navList = {navList}/> : null}
 		      </div>
 		  )
 	  
@@ -135,7 +135,7 @@ import {getUser} from '../../redux/actions'
   }
 
   export default connect(
-      state =>({user:state.user}),
+      state =>({user:state.user,unReadCount:state.chat.unReadCount}),
       {getUser}
   	)(Main)
 

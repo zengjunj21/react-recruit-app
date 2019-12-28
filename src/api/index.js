@@ -35,4 +35,4 @@ export const reqUserList = (type) => ajax('/userList',{type});
 export const reqChatMsgList = () => ajax('/msgList');
 
 // 修改制定消息为已读
-export const reqReadMsg = (from) => ('/readmsg',{from},'POST')
+export const reqReadMsg = (from) => ajax('/readmsg',{from},'POST')

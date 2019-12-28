@@ -220,9 +220,14 @@ router.get('/msgList',function(req,res){
 
 //修改制定消息为已读
 router.post('/readmsg',function(req,res){
+   
     // 得到请求中的from和to
     const from = req.body.from; //（别人）
     const to = req.cookies.userid; //(我)
+    console.log('----------------------')
+    console.log(from)
+    console.log(to)
+    console.log('----------------------')
     /*
         更新数据库中的chat数据
         参数1：查询条件

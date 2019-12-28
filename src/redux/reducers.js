@@ -9,7 +9,8 @@
 		RESET_USER,
 		RECEIVE_USER_LIST,
 		RECEIVE_MSG_LIST,
-		RECEIVE_MSG
+		RECEIVE_MSG,
+		MSG_READ
 
 	} from './action-types';
     //工具函数
@@ -66,18 +67,32 @@
 	function chat (state = initChat,action){
 		switch(action.type){
 			case RECEIVE_MSG_LIST: // {users,chatMsgs}
-			    const {users,chatMsgs } = action.data
+			    const {users,chatMsgs,userid} = action.data
 				return {
 					users,
 					chatMsgs,
-					unReadCount:0
+					unReadCount:chatMsgs.reduce((preTotal,msg)=>preTotal + (!msg.read && msg.to === userid ? 1:0),0)
 				}
 			case RECEIVE_MSG: // {chatMsg}
-			    const  chatMsg  = action.data;  
+			    const  {chatMsg}  = action.data;  
 				return {
 					users:state.users,
 					chatMsgs:[...state.chatMsgs,chatMsg],
-					unReadCount:0
+					unReadCount:state.unReadCount + (!chatMsg.read && chatMsg.to ===  action.data.userid ? 1:0)
+				}
+			case MSG_READ:
+				const {from ,to ,count } = action.data
+				return {
+					users:state.users,
+					chatMsgs:state.chatMsgs.map(msg=>{
+						// 需要更新
+						if(msg.from == from && msg.to == to && !msg.read){
+							return {...msg,read:true}
+						}else{ // 不需要更新
+							return msg
+						}
+					}),
+					unReadCount:state.unReadCount - count
 				}
 			default:
 				return state
