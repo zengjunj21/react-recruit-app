@@ -2,8 +2,10 @@ $gray:gray;
 .logo-container{
 	text-align:center;
 	/* background: $gray; */
+	padding: 20px;
 	.logo-img{
-	     width:320px;
-	     height:320px;
+	     width:200px;
+		 height:200px;
+		 border-radius: 50%;
 	}
 }

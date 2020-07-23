@@ -64,7 +64,7 @@ class Register extends Component {
       }
 		return (
             <div>
-               <NavBar>Boss直聘</NavBar>
+               <NavBar>App</NavBar>
                <Logo/>
                <WingBlank>
                   <List>
